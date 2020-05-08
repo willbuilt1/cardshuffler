@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
+import Card from './Card';
 
 export class CardTable extends Component {
     constructor(props){
@@ -7,7 +8,7 @@ export class CardTable extends Component {
         this.state = {
             deckId : "",
             cardsRemaining : 0,
-            cardDealt: []
+            cardsDealt: []
         }
         this.getCard = this.getCard.bind(this);
     }
@@ -18,7 +19,8 @@ export class CardTable extends Component {
         let data = response.data;
         this.setState({
             deckId : data.deck_id,
-            cardsRemaining : data.remaining
+            cardsRemaining : data.remaining,
+            cardsDealt : []
         })
         console.log(data)
         console.log(this.state)
@@ -29,7 +31,7 @@ export class CardTable extends Component {
             console.log(response.data.cards[0])
             this.setState({
                 cardsRemaining:response.data.remaining,
-                cardDealt:response.data.cards[0]
+                cardsDealt:[...this.state.cardsDealt, response.data.cards[0]]
             })
         })
     }
@@ -38,6 +40,7 @@ export class CardTable extends Component {
         return (
             <div>
                 <button onClick = {this.getCard}>Get a Card </button>
+                {this.state.cardsDealt.map(card => <Card cardImage={card.image} desc={card.code}/>)}
             </div>
         )
     }
