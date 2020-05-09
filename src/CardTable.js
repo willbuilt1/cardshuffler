@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import Card from "./Card";
+import "./CardTable.css"
 
 export class CardTable extends Component {
   constructor(props) {
@@ -22,12 +23,10 @@ export class CardTable extends Component {
       cardsRemaining: data.remaining,
       cardsDealt: [],
     });
-    console.log(data);
-    console.log(this.state);
   }
 
   getCard(e) {
-    Axios.get(
+    if (this.state.cardsRemaining > 0){Axios.get(
       `https://deckofcardsapi.com/api/deck/${this.state.deckId}/draw/?count=1`
     ).then((response) => {
       console.log(response.data.cards[0]);
@@ -36,35 +35,24 @@ export class CardTable extends Component {
         cardsDealt: [...this.state.cardsDealt, response.data.cards[0]],
       });
     });
-  }
+  } else {
+    alert('Out of Cards! Refresh to start again')
+  }}
 
   randomNumber() {
     return Math.floor(Math.random() * 100);
   }
-
-  cardStyle = {
-    position: "absolute",
-    display: "block",
-    border: "5px solid pink",
-    top: "60px",
-    left: `${this.randomNumber()}px`,
-  };
 
   render() {
     const displayCards = this.state.cardsDealt.map((card) => (
       <Card
         cardImage={card.image}
         desc={card.code}
-        style={{
-          position: "absolute",
-          display: "block",
-          top: "60px",
-          left: `${this.randomNumber}px`,
-        }}
       />
     ));
     return (
       <div className="cardTable">
+        <h1>Card Dealer</h1>
         <button onClick={this.getCard}>Get a Card </button>
         {displayCards}
       </div>

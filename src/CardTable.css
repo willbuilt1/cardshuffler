@@ -1,0 +1,17 @@
+.cardTable{
+    background-color: green;
+    height: 100vh;
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cardTable button{
+    display: block;
+    height: 40px;
+    margin: 0 auto;
+  }

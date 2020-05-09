@@ -1,18 +1,3 @@
 body{
   background-color: green;
 }
-
-.cardTable{
-  background-color: green;
-  height: 100vh;
-  width: 400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-.cardTable button{
-  display: inline-block;
-  height: 40px;
-}
